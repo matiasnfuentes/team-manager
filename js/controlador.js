@@ -44,7 +44,7 @@ function buscarEquipo(nombreEquipo) {
     let equipoBuscado = equipos.find(e => e.nombre == nombreEquipo)
     document.getElementById('equipos').innerHTML = ''
     if (equipoBuscado) {
-        mostarEquipo(equipoBuscado)
+        mostrarEquipo(equipoBuscado)
     }
 }
 
@@ -69,10 +69,7 @@ function crearJugador(equipoId) {
 
 function modificarJugador(equipoId, dniOriginal){
     const accionesParaModificarJugador = (nombre, dni, posicion, camiseta, equipo) => {
-        console.log(dniOriginal);
-        console.log(equipo.plantilla);
         equipo.plantilla = equipo.plantilla.filter(j => j.dni != dniOriginal);
-        console.log(equipo.plantilla);
         equipo.agregarJugador(nombre, dni, posicion, camiseta);
         mostrarPlantilla(equipoId);
     }
