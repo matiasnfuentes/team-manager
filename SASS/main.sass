@@ -1,0 +1,51 @@
+* 
+  margin: 0px
+  padding: 0px
+
+h1,h2,h3,h4,h5,h6
+    text-align: center
+    display: inline-block!important
+
+html,body
+    width: 100%
+    height: 100%
+
+.flex 
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-content: center
+
+.nav
+    border-radius: 10px
+
+.agregarJugador
+    &__boton
+        display: inline-block
+.equipo
+    &__titulo
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+    &__editar
+        display: flex
+        flex-direction: row
+        justify-content: space-around
+
+.nav
+    &__button
+        font-weight: bold
+
+@media (min-width: 576px) 
+    .nav
+        &__button
+            width: 30%
+            font-weight: bold
+
+@media (max-width: 576px) 
+    .jugador
+        &__botones
+            display: flex!important
+    .navContainer
+        padding-left: 0px
+        padding-right: 0px
