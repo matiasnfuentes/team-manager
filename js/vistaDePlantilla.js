@@ -1,7 +1,5 @@
 function mostrarCreadorDeJugadores(){
-    document.getElementById(
-      "body"
-    ).innerHTML =`
+    $("#body").html(`
     <div id="plantillaScreen" class="d-flex justify-content-center">
       <form action="#" class="credit-card-div">
         <div class="row mt-2">
@@ -38,14 +36,12 @@ function mostrarCreadorDeJugadores(){
             </div>
         </div>
       </form>
-    </div>`;
+    </div>`);
 }
   
 function mostrarPlantilla(equipoId){
     mostrarCreadorDeJugadores();
-    document.getElementById(
-      "body"
-    ).innerHTML +=`  
+    $("#body").append(`  
       <div class="row">
           <div class="col-lg-7 mx-auto">
               <div class="card border-0 shadow">
@@ -68,15 +64,20 @@ function mostrarPlantilla(equipoId){
                   </div>
               </div>
           </div>
-      </div>`;
-    document.getElementById("crearJugador").onclick = () => crearJugador(equipoId);
+      </div>`);
+    $("#crearJugador").click( () =>{
+        crearJugador(equipoId);
+        $("#nombreJugador").val("");
+        $("#dni").val("");
+        $("#camiseta").val("");
+        $("#posicion option:eq(0)").prop('selected', true);
+    });
     let plantilla = getPlantillaDelEquipo(equipoId);
     plantilla.forEach(jugador => mostrarJugador(jugador, equipoId));
 }
 
 function mostrarJugador(jugador, equipoId){
-    let plantillaHtml = document.getElementById("plantilla");
-    plantillaHtml.innerHTML+=`
+    $("#plantilla").append(`
         <tr>
             <th scope="row">${jugador.camiseta}</th>
             <td>${jugador.nombre}</td>
@@ -97,11 +98,11 @@ function mostrarJugador(jugador, equipoId){
                     </li>
                 </ul>
             </td>
-        </tr>`;
+        </tr>`);
   
     // Me aprovecho de la propagación de eventos del dom, para setear un evento
     // a un componente html que se crea dinámicamente.
-    document.addEventListener('click',function(e){
+    $(document).click( (e) => {
       if(e.target && e.target.id== `delete-${jugador.dni}`){
         eliminarJugador(jugador.dni, equipoId);
       } else if (e.target && e.target.id== `modify-${jugador.dni}`){

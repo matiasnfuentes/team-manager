@@ -4,16 +4,15 @@ let lastId = 0;
 // Equipos
 
 function crearEquipo() {
-    let nombre = document.getElementById('nombreEquipo').value;
-    let entrenador = document.getElementById('entrenador').value;
-    let estadio = document.getElementById('estadio').value;
-    document.getElementById('nombreEquipo').value = '';
-    document.getElementById('entrenador').value = '';
-    document.getElementById('estadio').value = '';
+    
+    let nombre = $("#nombreEquipo").val();
+    let entrenador = $("#entrenador").val();
+    let estadio = $("#estadio").val();
+    $("#nombreEquipo").val('');
+    $("#entrenador").val('');
+    $("#estadio").val('');
     if(verificarAtributosDelEquipo(nombre,entrenador,estadio)){
-        let avatarEquipo = document.getElementById('avatarEquipo');
-        var idAvatar = avatarEquipo.options[avatarEquipo.selectedIndex].value;
-
+        var idAvatar = $("#avatarEquipo").children("option:selected").val();
         let equipo = new Equipo(nombre, lastId, entrenador, estadio, idAvatar);
         equipos.push(equipo);
         lastId++;
@@ -41,10 +40,10 @@ function ordenarEquiposConFuncion(f) {
 }
 
 function buscarEquipo(nombreEquipo) {
-    let equipoBuscado = equipos.find(e => e.nombre == nombreEquipo)
-    document.getElementById('equipos').innerHTML = ''
+    let equipoBuscado = equipos.find(e => e.nombre == nombreEquipo);
+    $("#equipos").html('');
     if (equipoBuscado) {
-        mostrarEquipo(equipoBuscado)
+	mostrarEquipo(equipoBuscado);
     }
 }
 
@@ -91,12 +90,11 @@ function verificarAtributosDelJugador(nombre, dni, posicion, camiseta, equipo, e
 }
 
 function obtenerDatosDelJugadorVerificarlosYSiSonCorrectosProceder(equipoId, funcionSiVerificacionEsExitosa, esModificion) {
-    let nombre = document.getElementById("nombreJugador").value;
-    let dni = document.getElementById("dni").value;
-    dni = dni ? parseInt(dni) : dni;
-    let posiciones = document.getElementById("posicion");
-    let posicion = posiciones.options[posiciones.selectedIndex].text;
-    let camiseta = document.getElementById("camiseta").value;
+    let nombre = $("#nombreJugador").val();
+    let dni = $("#dni").val();
+    dni = dni ? parseInt(dni) : dni; 
+    let posicion = $( "#posicion option:selected" ).text();
+    let camiseta = $("#camiseta").val();
     camiseta = camiseta ? parseInt(camiseta) : camiseta;
     let equipoDelJugador = getEquipo(equipoId);
     if(verificarAtributosDelJugador(nombre, dni, posicion, camiseta, equipoDelJugador, esModificion)){
@@ -136,12 +134,8 @@ function init() {
         }
 
         mostrarCreadorDeEquipos();
-        document
-            .getElementById('creadorDeEquipos')
-            .addEventListener('click', () => mostrarCreadorDeEquipos());
-        document
-            .getElementById('misEquipos')
-            .addEventListener('click', () => mostrarEquipos(equipos));
+        $("#creadorDeEquipos").click( () => mostrarCreadorDeEquipos() );
+        $("#misEquipos").click(() => mostrarEquipos(equipos));
     }
 
     window.onbeforeunload = e => {

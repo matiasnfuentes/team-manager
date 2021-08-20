@@ -1,6 +1,5 @@
 function mostrarEquipo(equipo) {
 
-    let equiposHTML = document.getElementById("equipos");
     let avatar;
     switch (equipo.idAvatar) {
       case "1":
@@ -34,7 +33,7 @@ function mostrarEquipo(equipo) {
         avatar = "./img/equipoRojoYNegro.png";
         break;
     }
-    equiposHTML.innerHTML += `<div class="col">
+    $("#equipos").append(`<div class="col">
                             <div class="card w-100  ">
                               <div class="card-header equipo__titulo">
                                 <h5 class="card-title">${equipo.nombre}</h5>
@@ -52,9 +51,9 @@ function mostrarEquipo(equipo) {
                                 </li>
                               </ul>
                             </div>
-                          </div>`;
+                          </div>`);
                           
-      document.addEventListener('click',function(e){
+      $(document).click((e) => {
         if(e.target && e.target.id== `close-${equipo.id}`){
           eliminarEquipo(equipo.id)
         } else if (e.target && e.target.id== `plantilla-${equipo.id}`){
@@ -64,9 +63,7 @@ function mostrarEquipo(equipo) {
 }
 
 function mostrarEquipos(equipos) {
-    document.getElementById(
-      "body"
-    ).innerHTML = `<div class ="col-12 col-sm-8 col-lg-5 align-self-center">
+    $("#body").html(`<div class ="col-12 col-sm-8 col-lg-5 align-self-center">
                        <form>
                           <div class="row mb-3 justify-content-center">
                             <label for="ordenar" class="form-label w-75"
@@ -101,14 +98,13 @@ function mostrarEquipos(equipos) {
                        </form>
                     </div>
                     
-                    <div id ="equipos" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 col-12 col-lg-8"></div>`;
+                    <div id ="equipos" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 col-12 col-lg-8"></div>`);
   
     equipos.forEach((e) => mostrarEquipo(e));
-  
-    let ordenar = document.getElementById("ordenar");
-    ordenar.addEventListener("change", () => {
-      document.getElementById("equipos").innerHTML = "";
-      let ordenarValue = ordenar.options[ordenar.selectedIndex].value;
+
+    $("#ordenar").change( () => {
+      $("#equipos").html("");
+      let ordenarValue = $( "#ordenar option:selected" ).val();
   
       switch (ordenarValue) {
         case "1":
@@ -121,16 +117,13 @@ function mostrarEquipos(equipos) {
       equipos.forEach((e) => mostrarEquipo(e));
     });
   
-    let buscar = document.getElementById("buscar");
-    let equipoABuscar = document.getElementById("equipoABuscar");
-    buscar.addEventListener("click", () => {
-      let inputValue = equipoABuscar.value;
+    $("#buscar").click( () => {
+      let inputValue = $("#equipoABuscar").val();
       buscarEquipo(inputValue);
     });
   
-    let mostrarTodos = document.getElementById("mostrarTodos");
-    mostrarTodos.addEventListener("click", () => {
-      document.getElementById("equipos").innerHTML = "";
+    $("#mostrarTodos").click( () => {
+      $("#equipos").html("");
       equipos.forEach((e) => mostrarEquipo(e));
     });
 }

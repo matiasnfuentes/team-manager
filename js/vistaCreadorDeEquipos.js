@@ -1,7 +1,5 @@
 function mostrarCreadorDeEquipos() {
-    document.getElementById(
-      "body"
-    ).innerHTML = `<form id="formulario" class="col col-lg-8 p-e-2 p-s-2">
+    $("#body").html(`<form id="formulario" class="col col-lg-8 p-e-2 p-s-2">
                         <div class="mb-3">
                           <label for="nombreEquipo" class="form-label"
                             >Nombre del equipo:
@@ -77,8 +75,6 @@ function mostrarCreadorDeEquipos() {
                           </div>
                             
                         </div>
-                    </form>`;
-    document
-      .getElementById("crearEquipo")
-      .addEventListener("click", () => crearEquipo());
+                    </form>`);
+    $("#crearEquipo").click(() => crearEquipo());
 }

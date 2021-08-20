@@ -1,8 +1,6 @@
 function mostrarAlerta(mensaje ,redireccion){
 
-  document.getElementById(
-    "body"
-  ).innerHTML = `
+  $("#body").html(`
   <div class="col-11 col-lg-8 d-flex flex-column">
     <div class="alert alert-danger p-1 text-center"" role="alert">
       ${mensaje}
@@ -13,8 +11,8 @@ function mostrarAlerta(mensaje ,redireccion){
       </button> 
     </div>
   </div>
-  `
-  document.getElementById("volver").onclick = () => redireccion();
+  `);
+  $("#volver").click( () => redireccion() );
 
 }
 
