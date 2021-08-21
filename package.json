@@ -13,5 +13,13 @@
   "devDependencies": {
     "node-sass": "^6.0.1",
     "nodemon": "^2.0.12"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matiasnfuentes/team-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/matiasnfuentes/team-manager/issues"
+  },
+  "homepage": "https://github.com/matiasnfuentes/team-manager#readme"
 }
