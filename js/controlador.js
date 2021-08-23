@@ -135,7 +135,8 @@ function init() {
 
         mostrarCreadorDeEquipos();
         $("#creadorDeEquipos").click( () => mostrarCreadorDeEquipos() );
-        $("#misEquipos").click(() => mostrarEquipos(equipos));
+        $("#misEquipos").click(() => mostrarEquipos(equipos) );
+        $("#partidos").click( () => mostrarCreadorDePartidos() );
     }
 
     window.onbeforeunload = e => {
