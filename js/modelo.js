@@ -7,13 +7,23 @@ class Jugador {
   }
 }
 
+class Partido {
+  constructor (id, equipoLocalId, equipoVisitanteId, golesLocal, golesVisitante) {
+    this.id = id;
+    this.equipoLocalId = equipoLocalId;
+    this.equipoVisitanteId = equipoVisitanteId;
+    this.golesLocal = golesLocal;
+    this.golesVisitante = golesVisitante;
+  }
+}
+
 class Equipo {
   constructor(nombre, id, entrenador, estadio, idAvatar) {
-    this.nombre = nombre
-    this.id = id
-    this.estadio = estadio
-    this.entrenador = entrenador
-    this.idAvatar = idAvatar
+    this.nombre = nombre;
+    this.id = id;
+    this.estadio = estadio;
+    this.entrenador = entrenador;
+    this.idAvatar = idAvatar;
     this.plantilla = [];
   }
 

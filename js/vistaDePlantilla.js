@@ -1,7 +1,7 @@
 function mostrarCreadorDeJugadores(){
     $("#body").html(`
     <div id="plantillaScreen" class="d-flex justify-content-center">
-      <form action="#" class="credit-card-div">
+      <form action="#">
         <div class="row mt-2">
             <div class="col-md-12">
                 <input type="text" class="form-control" id="nombreJugador" placeholder="Nombre del jugador" />

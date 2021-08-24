@@ -1,6 +1,7 @@
 let equipos = []
 let lastId = 0;
-
+let partidos = [];
+let lastPartidoID = 0;
 // Equipos
 
 function crearEquipo() {
@@ -104,6 +105,25 @@ function obtenerDatosDelJugadorVerificarlosYSiSonCorrectosProceder(equipoId, fun
     }
 }
 
+// Partidos
+
+function registrarPartido(){
+    let equipoLocal = $("#local option:selected" ).val();
+    let equipoVisitante = $("#visitante option:selected").val();
+    console.log(equipoLocal);
+    console.log(equipoVisitante);
+    let golesLocal = parseInt($("#localGoles").val());
+    let golesVisitante = parseInt($("#visitanteGoles").val());
+    if(equipoLocal!='-1' && equipoVisitante!='-1'){
+        let partido = new Partido(lastPartidoID, equipoLocal, equipoVisitante , golesLocal, golesVisitante);
+        lastPartidoID++;
+        partidos.push(partido);
+        mostrarPartido(partido);
+    } else{
+        mostrarAlerta("Debe seleccionar los equipos para registrar un partido", () => mostrarCreadorDePartidos());    
+    }
+}
+
 //Inicialización
 
 function init() {
@@ -127,10 +147,19 @@ function init() {
             equipos = [];    
         }
 
+        partidos = JSON.parse(localStorage.getItem('partidos'));
+        if (!partidos) {
+            partidos = [];    
+        }
         
         lastId = localStorage.getItem('lastId');
         if (!lastId) {
             lastId = 0;
+        }
+
+        lastPartidoID = localStorage.getItem('lastPartidoID');
+        if (!lastPartidoID) {
+            lastPartidoID = 0;
         }
 
         mostrarCreadorDeEquipos();
@@ -142,7 +171,9 @@ function init() {
     window.onbeforeunload = e => {
         e.preventDefault();
         localStorage.setItem('equipos', JSON.stringify(equipos));
-        localStorage.setItem('lastId', lastId)
+        localStorage.setItem('lastId', lastId);
+        localStorage.setItem('partidos', JSON.stringify(partidos));
+        localStorage.setItem('lastPartidoID', lastPartidoID);
         return undefined;
     }
 }
