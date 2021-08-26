@@ -1,3 +1,8 @@
+function mostrarVistaPartidos(equipoID){
+    mostrarCreadorDePartidos();
+    mostrarTablaDePartidos(equipoID);
+}
+
 function mostrarCreadorDePartidos(){
     $("#body").html(`
     <div id="partidosScreen" class="align-self-center col-12 col-lg-8">
@@ -46,9 +51,85 @@ function mostrarCreadorDePartidos(){
         </div>
       </form>
     </div>`);
-    
-    setearVistaPartidos();
+    setearCreadorDePartidos();
+}
 
+function setearCreadorDePartidos() {
+    equipos.forEach(e => {
+        $("#local").append(`<option value="${e.id}">${e.nombre}</option>`)    
+    });
+
+    $("#local").change( () => {
+        let equipoSeleccionado = $("#local").val();
+        $("#visitante").html(`<option value="-1" selected>Visitante</option>`);
+        mostrarEquiposRestantes(equipoSeleccionado);
+    });
+
+    $("#registrarPartido").click( () =>{
+        registrarPartido();
+        $("#local option:eq(0)").prop('selected', true);
+        $("#visitante").html(`<option value="-1" selected>Visitante</option>`); 
+        $("#localGoles").val("0");
+        $("#visitanteGoles").val("0");
+        $("#localMenos").attr('disabled', true);
+        $("#visitanteMenos").attr('disabled', true);
+    });
+
+    setearBotonesParaAñadirYRestarGoles('local');
+    setearBotonesParaAñadirYRestarGoles('visitante');
+    
+}
+
+function mostrarEquiposRestantes(equipoID){
+    let equiposRestantes = equipos.filter(e => e.id != equipoID);
+    equiposRestantes.forEach(e => {
+        $("#visitante").append(`<option value="${e.id}">${e.nombre}</option>`);
+    });
+}
+
+function setearBotonesParaAñadirYRestarGoles(localia) {
+
+    $(`#${localia}Mas`).click( () => {
+        let currentVal = parseInt($(`#${localia}Goles`).val());
+        let maxVal = $(`#${localia}Goles`).attr('max');
+
+        if(currentVal < maxVal){
+            $(`#${localia}Goles`).val(currentVal + 1);
+        }
+
+        let valorDespuesDeSuma = $(`#${localia}Goles`).val();
+
+        if(valorDespuesDeSuma >= maxVal){
+            $(`#${localia}Mas`).attr('disabled', true);
+        }
+
+        if($(`#${localia}Menos`).attr('disabled')){
+            $(`#${localia}Menos`).attr('disabled', false);
+        }
+    });
+    
+    $(`#${localia}Menos`).click( () => {
+        let currentVal = parseInt($(`#${localia}Goles`).val());
+        let minVal = $(`#${localia}Goles`).attr('min');
+
+        if(currentVal > minVal){
+            $(`#${localia}Goles`).val(currentVal - 1);
+        }
+
+        let valorDespuesDeResta = $(`#${localia}Goles`).val();
+
+        if(valorDespuesDeResta <= minVal){
+            $(`#${localia}Menos`).attr('disabled', true);
+        }
+
+        if($(`#${localia}Mas`).attr('disabled')){
+            $(`#${localia}Mas`).attr('disabled', false);
+        }
+    }); 
+
+}
+
+function mostrarTablaDePartidos(equipoID){
     $("#body").append(`  
       <div class="row">
           <div class="col-lg-7 mx-auto">
@@ -72,82 +153,19 @@ function mostrarCreadorDePartidos(){
               </div>
           </div>
       </div>`);
-    partidos.forEach(p => mostrarPartido(p));
-}
-
-function setearVistaPartidos() {
-    equipos.forEach(e => {
-        $("#local").append(`<option value="${e.id}">${e.nombre}</option>`)    
-    });
-
-    $("#local").change( () => {
-        let equipoSeleccionado = $("#local").val();
-        $("#visitante").html(`<option value="-1" selected>Visitante</option>`);
-        let equiposRestantes = equipos.filter(e => e.id != equipoSeleccionado);
-        equiposRestantes.forEach(e => {
-            $("#visitante").append(`<option value="${e.id}">${e.nombre}</option>`);
-        }) 
-    });
-
-    $("#registrarPartido").click( () =>{
-        registrarPartido();
-        $("#local option:eq(0)").prop('selected', true);
-        $("#visitante").html(`<option value="-1" selected>Visitante</option>`); 
-        $("#localGoles").val("0");
-        $("#visitanteGoles").val("0");
-        $("#localMenos").attr('disabled', true);
-        $("#visitanteMenos").attr('disabled', true);
-    });
-
-    setearBotonesParaAñadirYRestarGoles('local');
-    setearBotonesParaAñadirYRestarGoles('visitante');
-    
-}
-
-function setearBotonesParaAñadirYRestarGoles(localia) {
-
-    $(`#${localia}Mas`).click( () => {
-        let currentVal = parseInt($(`#${localia}Goles`).val());
-        let maxVal = $(`#${localia}Goles`).attr('max');
-
-        if(currentVal < maxVal){
-            $(`#${localia}Goles`).val(currentVal + 1);
-        }
-
-        if(currentVal >= maxVal){
-            $(`#${localia}Mas`).attr('disabled', true);
-        }
-
-        if($(`#${localia}Menos`).attr('disabled')){
-            $(`#${localia}Menos`).attr('disabled', false);
-        }
-    });
-    
-    $(`#${localia}Menos`).click( () => {
-        let currentVal = parseInt($(`#${localia}Goles`).val());
-        let minVal = $(`#${localia}Goles`).attr('min');
-
-        if(currentVal > minVal){
-            $(`#${localia}Goles`).val(currentVal - 1);
-        }
-
-        if(currentVal <= minVal){
-            $(`#${localia}Menos`).attr('disabled', true);
-        }
-
-        if($(`#${localia}Mas`).attr('disabled')){
-            $(`#${localia}Mas`).attr('disabled', false);
-        }
-    }); 
+    if (equipoID){
+        partidos
+            .filter( p => (p.equipoLocalId == equipoID) || (p.equipoVisitanteId == equipoID) )
+            .forEach( p => mostrarPartido(p));
+    } else {
+        partidos.forEach(p => mostrarPartido(p));
+    }
 
 }
  
 function mostrarPartido(partido){
-    console.log(partido);
     let equipoLocal = equipos.find( e => e.id == partido.equipoLocalId).nombre;
-    console.log(equipoLocal);
     let equipoVisitante = equipos.find( e => e.id == partido.equipoVisitanteId).nombre;
-    console.log(equipoVisitante);
     $("#partidosTabla").append(`
         <tr>
             <th scope="row">${partido.id}</th>
@@ -171,13 +189,44 @@ function mostrarPartido(partido){
             </td>
         </tr>`);
   
-    // Me aprovecho de la propagación de eventos del dom, para setear un evento
-    // a un componente html que se crea dinámicamente.
-    /*$(document).click( (e) => {
-      if(e.target && e.target.id== `delete-${jugador.dni}`){
-        eliminarJugador(jugador.dni, equipoId);
-      } else if (e.target && e.target.id== `modify-${jugador.dni}`){
-        mostrarModificadorDeJugadores(jugador, equipoId);
+    $(document).click( (e) => {
+      if(e.target && e.target.id == `delete-${partido.id}`){
+        eliminarPartido(partido.id);
+      } else if (e.target && e.target.id== `modify-${partido.id}`){
+        mostrarModificadorDePartidos(partido);
       }
-   });*/
+   });
+}
+
+function mostrarModificadorDePartidos(partido){
+    mostrarCreadorDePartidos();
+    $('#localGoles').val(partido.golesLocal);
+    $('#visitanteGoles').val(partido.golesVisitante);
+    $(`#local option[value="-1"]`).prop('selected', false);
+    $(`#visitante option[value="-1"]`).prop('selected', false);
+    $(`#local option[value="${partido.equipoLocalId}"]`).prop('selected', true);
+
+    let localias = ['local', 'visitante'];
+
+    localias.forEach( l => {
+
+        let defaultValue = $(`#${l}Goles`).val();
+    
+        if(defaultValue < $(`#${l}Goles`).attr('max')){
+            $(`#${l}Mas`).attr('disabled', false);
+        }
+
+        if(defaultValue > $(`#${l}Goles`).attr('min')){
+            $(`#${l}Menos`).attr('disabled', false);
+        }
+
+    })
+
+    mostrarEquiposRestantes(partido.equipoLocalId);
+    $(`#visitante option[value="${partido.equipoVisitanteId}"]`).prop('selected', true);
+    $(`#registrarPartido`).val("Modificar");
+    $(`#registrarPartido`).unbind();
+    $(`#registrarPartido`).click( () => {
+        modificarPartido(partido);
+    });
 }

@@ -110,8 +110,6 @@ function obtenerDatosDelJugadorVerificarlosYSiSonCorrectosProceder(equipoId, fun
 function registrarPartido(){
     let equipoLocal = $("#local option:selected" ).val();
     let equipoVisitante = $("#visitante option:selected").val();
-    console.log(equipoLocal);
-    console.log(equipoVisitante);
     let golesLocal = parseInt($("#localGoles").val());
     let golesVisitante = parseInt($("#visitanteGoles").val());
     if(equipoLocal!='-1' && equipoVisitante!='-1'){
@@ -120,7 +118,32 @@ function registrarPartido(){
         partidos.push(partido);
         mostrarPartido(partido);
     } else{
-        mostrarAlerta("Debe seleccionar los equipos para registrar un partido", () => mostrarCreadorDePartidos());    
+        mostrarAlerta("Debe seleccionar los equipos para registrar un partido", () => mostrarVistaPartidos());    
+    }
+}
+
+function eliminarPartido(partidoId){
+    partidos = partidos.filter(p => p.id != partidoId);
+    $('#partidosTabla').html('');
+    partidos.forEach(p => mostrarPartido(p));
+}
+
+function modificarPartido(partido){
+    $(`#registrarPartido`).unbind();
+    let equipoLocal = $("#local option:selected" ).val();
+    let equipoVisitante = $("#visitante option:selected").val();
+    console.log(equipoLocal);
+    console.log(equipoVisitante);
+    let golesLocal = parseInt($("#localGoles").val());
+    let golesVisitante = parseInt($("#visitanteGoles").val());
+    if(equipoLocal!='-1' && equipoVisitante!='-1'){
+        partido.equipoLocalId = equipoLocal; 
+        partido.equipoVisitanteId = equipoVisitante;
+        partido.golesLocal = golesLocal;
+        partido.golesVisitante = golesVisitante;
+        mostrarVistaPartidos();
+    } else{
+        mostrarAlerta("Debe seleccionar los equipos para modificar un partido", () => mostrarVistaPartidos());    
     }
 }
 
@@ -165,7 +188,7 @@ function init() {
         mostrarCreadorDeEquipos();
         $("#creadorDeEquipos").click( () => mostrarCreadorDeEquipos() );
         $("#misEquipos").click(() => mostrarEquipos(equipos) );
-        $("#partidos").click( () => mostrarCreadorDePartidos() );
+        $("#partidos").click( () => mostrarVistaPartidos() );
     }
 
     window.onbeforeunload = e => {

@@ -49,15 +49,20 @@ function mostrarEquipo(equipo) {
                                 <li class="list-group-item equipo__editar">
                                   <button id="plantilla-${equipo.id}" type="button" class="btn btn-primary w-100">Plantilla</button>
                                 </li>
+                                <li class="list-group-item equipo__editar">
+                                  <button id="partidos-${equipo.id}" type="button" class="btn btn-primary w-100">Partidos</button>
+                                </li>
                               </ul>
                             </div>
                           </div>`);
                           
       $(document).click((e) => {
-        if(e.target && e.target.id== `close-${equipo.id}`){
-          eliminarEquipo(equipo.id)
-        } else if (e.target && e.target.id== `plantilla-${equipo.id}`){
-          mostrarPlantilla(equipo.id)
+        if(e.target && e.target.id == `close-${equipo.id}`){
+          eliminarEquipo(equipo.id);
+        } else if (e.target && e.target.id == `plantilla-${equipo.id}`){
+          mostrarPlantilla(equipo.id);
+        } else if (e.target && e.target.id == `partidos-${equipo.id}`){
+          mostrarVistaPartidos(equipo.id);
         }
       }); 
 }
@@ -98,7 +103,7 @@ function mostrarEquipos(equipos) {
                        </form>
                     </div>
                     
-                    <div id ="equipos" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 col-12 col-lg-8"></div>`);
+                    <div id ="equipos" class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4 col-12 col-lg-8"></div>`);
   
     equipos.forEach((e) => mostrarEquipo(e));
 
