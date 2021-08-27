@@ -132,9 +132,9 @@ function setearBotonesParaAñadirYRestarGoles(localia) {
 function mostrarTablaDePartidos(equipoID){
     $("#body").append(`  
       <div class="row">
-          <div class="col-lg-7 mx-auto">
+          <div class="col-12 col-sm-8 mx-auto">
               <div class="card border-0 shadow">
-                  <div class="card-body p-0 p-sm-5">
+                  <div class="card-body p-0 p-sm-3">
                       <div class="table-responsive">
                           <table class="table m-0">
                               <thead>

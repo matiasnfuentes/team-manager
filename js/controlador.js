@@ -178,11 +178,15 @@ function init() {
         lastId = localStorage.getItem('lastId');
         if (!lastId) {
             lastId = 0;
+        } else{
+            lastId = parseInt(lastId);
         }
 
         lastPartidoID = localStorage.getItem('lastPartidoID');
         if (!lastPartidoID) {
             lastPartidoID = 0;
+        } else {
+            lastPartidoID = parseInt(lastPartidoID);
         }
 
         mostrarCreadorDeEquipos();

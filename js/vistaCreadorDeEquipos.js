@@ -73,8 +73,34 @@ function mostrarCreadorDeEquipos() {
                             Crear!
                             </button>  
                           </div>
+                          <div class="col-12 col-sm-6 align-self-center mt-2 mt-sm-0">
+                            <button
+                            type="button"
+                            class="btn btn-primary w-100"
+                            id="randomTeam"
+                            name="randomTeam"
+                            >
+                            Obtener equipo aleatorio
+                            </button>  
+                          </div>
                             
                         </div>
-                    </form>`);
+                    </form>
+                    <div class="modal fade" id="randomModal" tabindex="-1" aria-labelledby="randomModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="randomModalLabel">Nuevo equipo generado!</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                          <div id="randomModal-body" class="modal-body">
+                              
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                      </div>
+                  </div>`);
     $("#crearEquipo").click(() => crearEquipo());
+    $("#randomTeam").click(() => getRandomTeam());
 }

@@ -1,32 +1,32 @@
 function mostrarEquipo(equipo) {
 
     let avatar;
-    switch (equipo.idAvatar) {
-      case "1":
+    switch (parseInt(equipo.idAvatar)) {
+      case 1:
         avatar = "./img/equipoAmarillo.png";
         break;
-      case "2":
+      case 2:
         avatar = "./img/equipoAmarillo2.png";
         break;
-      case "3":
+      case 3:
         avatar = "./img/equipoAzul.png";
         break;
-      case "4":
+      case 4:
         avatar = "./img/equipoAzulOscuro.png";
         break;
-      case "5":
+      case 5:
         avatar = "./img/equipoBlanco.png";
         break;
-      case "6":
+      case 6:
         avatar = "./img/equipoBlancoYCeleste.png";
         break;
-      case "7":
+      case 7:
         avatar = "./img/equipoNaranja.png";
         break;
-      case "8":
+      case 8:
         avatar = "./img/equipoRojo.png";
         break;
-      case "9":
+      case 9:
         avatar = "./img/equipoRojo2.png";
         break;
       default:
@@ -43,8 +43,8 @@ function mostrarEquipo(equipo) {
                                 <img src="${avatar}" class="card-img-top" alt="...">  
                               </div>
                               <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Entrenador: ${equipo.entrenador}</li>
-                                <li class="list-group-item">Estadio: ${equipo.estadio}</li>
+                                <li class="list-group-item text-truncate">Entrenador: ${equipo.entrenador}</li>
+                                <li class="list-group-item text-truncate">Estadio: ${equipo.estadio}</li>
                                 <li class="list-group-item">ID: ${equipo.id}</li>
                                 <li class="list-group-item equipo__editar">
                                   <button id="plantilla-${equipo.id}" type="button" class="btn btn-primary w-100">Plantilla</button>
