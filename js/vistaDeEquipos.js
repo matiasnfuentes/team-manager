@@ -40,7 +40,7 @@ function mostrarEquipo(equipo) {
                                 <button id="close-${equipo.id}" type="button" class="btn-close"></button>
                               </div>
                               <div class="card-body">
-                                <img src="${avatar}" class="card-img-top" alt="...">  
+                                <img src="${avatar}" class="card-img-top" height="180" alt="...">  
                               </div>
                               <ul class="list-group list-group-flush">
                                 <li class="list-group-item text-truncate">Entrenador: ${equipo.entrenador}</li>
@@ -55,16 +55,10 @@ function mostrarEquipo(equipo) {
                               </ul>
                             </div>
                           </div>`);
-                          
-      $(document).click((e) => {
-        if(e.target && e.target.id == `close-${equipo.id}`){
-          eliminarEquipo(equipo.id);
-        } else if (e.target && e.target.id == `plantilla-${equipo.id}`){
-          mostrarPlantilla(equipo.id);
-        } else if (e.target && e.target.id == `partidos-${equipo.id}`){
-          mostrarVistaPartidos(equipo.id);
-        }
-      }); 
+
+      $('#equipos').on('click',`#close-${equipo.id}`, () => eliminarEquipo(equipo.id) );
+      $('#equipos').on('click',`#plantilla-${equipo.id}`, () =>  mostrarPlantilla(equipo.id));
+      $('#equipos').on('click',`#partidos-${equipo.id}`, () => mostrarVistaPartidos(equipo.id));
 }
 
 function mostrarEquipos(equipos) {

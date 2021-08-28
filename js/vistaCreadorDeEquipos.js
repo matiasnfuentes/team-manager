@@ -1,5 +1,5 @@
 function mostrarCreadorDeEquipos() {
-    $("#body").html(`<form id="formulario" class="col col-lg-8 p-e-2 p-s-2">
+    $('#body').html(`<form id="formulario" class="col col-lg-8 p-e-2 p-s-2">
                         <div class="mb-3">
                           <label for="nombreEquipo" class="form-label"
                             >Nombre del equipo:

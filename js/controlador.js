@@ -29,6 +29,7 @@ function verificarAtributosDelEquipo(nombre, entrenador, estadio){
 
 function eliminarEquipo(equipoId) {
     equipos = equipos.filter(e => e.id != equipoId);
+    partidos = partidos.filter(p => (p.equipoLocalId != equipoId) && (p.equipoVisitanteId != equipoId));
     mostrarEquipos(equipos);
 }
 

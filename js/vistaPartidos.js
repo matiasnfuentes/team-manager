@@ -188,14 +188,9 @@ function mostrarPartido(partido){
                 </ul>
             </td>
         </tr>`);
-  
-    $(document).click( (e) => {
-      if(e.target && e.target.id == `delete-${partido.id}`){
-        eliminarPartido(partido.id);
-      } else if (e.target && e.target.id== `modify-${partido.id}`){
-        mostrarModificadorDePartidos(partido);
-      }
-   });
+    $('#partidosTabla').on('click',`#delete-${partido.id}`, () => eliminarPartido(partido.id) );
+    $('#partidosTabla').on('click',`#modify-${partido.id}`, () => mostrarModificadorDePartidos(partido) );
+
 }
 
 function mostrarModificadorDePartidos(partido){

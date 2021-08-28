@@ -99,14 +99,7 @@ function mostrarJugador(jugador, equipoId){
                 </ul>
             </td>
         </tr>`);
-  
-    // Me aprovecho de la propagación de eventos del dom, para setear un evento
-    // a un componente html que se crea dinámicamente.
-    $(document).click( (e) => {
-      if(e.target && e.target.id== `delete-${jugador.dni}`){
-        eliminarJugador(jugador.dni, equipoId);
-      } else if (e.target && e.target.id== `modify-${jugador.dni}`){
-        mostrarModificadorDeJugadores(jugador, equipoId);
-      }
-   });
+
+    $('#plantilla').on('click',`#delete-${jugador.dni}`, () => eliminarJugador(jugador.dni, equipoId));
+    $('#plantilla').on('click',`#modify-${jugador.dni}`, () => mostrarModificadorDeJugadores(jugador, equipoId) );
 }
