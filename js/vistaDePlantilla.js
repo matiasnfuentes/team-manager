@@ -42,7 +42,7 @@ function mostrarCreadorDeJugadores(){
 function mostrarPlantilla(equipoId){
     mostrarCreadorDeJugadores();
     $("#body").append(`  
-      <div class="row">
+      <div class="row mt-2 align-self-center">
           <div class="col-12 col-sm-8 mx-auto">
               <div class="card border-0 shadow">
                   <div class="card-body p-0 p-sm-3">

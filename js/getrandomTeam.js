@@ -21,18 +21,40 @@ function getRandomTeam(){
          type: 'GET'}).done(function(response) {
             let nombre = response.shortName;
             let estadio = response.venue;
-            let plantel = response.squad
+            let plantel = response.squad;
             let entrenador;
             if (plantel.length === 0){
                 entrenador = `Couch ${teamId}`;
             } else{
-                entrenador = plantel.pop().name;
+                entrenador = plantel[0].name;
             }
 
             let equipo = new Equipo(nombre, lastId, entrenador, estadio, avatarId);
             equipos.push(equipo);
             lastId++;
             mostrarModalDeEquipos(equipo);
+            plantel.forEach( (j, index) => {
+                equipo.agregarJugador(j.name, j.id, parsePosicion(j.position), index);
+            })
     });
 
+}
+
+function parsePosicion(posicionJSON){
+    let posicionModelo;
+    switch (posicionJSON) {
+      case "Attacker":
+        posicionModelo = "Delantero";
+        break;
+      case "Midfielder":
+        posicionModelo = "Mediocampista";
+        break;
+      case "Defender":
+        posicionModelo = "Defensor";
+        break;
+      default:
+        posicionModelo = "Arquero";
+        break;
+    }
+    return posicionModelo;
 }
