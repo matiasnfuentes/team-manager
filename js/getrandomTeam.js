@@ -21,8 +21,14 @@ function getRandomTeam(){
          type: 'GET'}).done(function(response) {
             let nombre = response.shortName;
             let estadio = response.venue;
-            let entrenador = response.squad.pop().name;
-            
+            let plantel = response.squad
+            let entrenador;
+            if (plantel.length === 0){
+                entrenador = `Couch ${teamId}`;
+            } else{
+                entrenador = squad.pop().name;
+            }
+
             let equipo = new Equipo(nombre, lastId, entrenador, estadio, avatarId);
             equipos.push(equipo);
             lastId++;
