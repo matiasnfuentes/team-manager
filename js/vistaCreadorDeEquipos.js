@@ -93,7 +93,7 @@ function mostrarFormularioEquipos() {
 function mostrarBotonesDeCreacionDeEquipos(){
   $('#formulario').append(`
   <div class="row justify-content-center">
-    <div class="col-12 col-sm-6 align-self-center">
+    <div class="col-6 align-self-center">
       <button
       type="button"
       class="btn btn-primary w-100"
@@ -103,14 +103,14 @@ function mostrarBotonesDeCreacionDeEquipos(){
       Crear!
       </button>  
     </div>
-    <div class="col-12 col-sm-6 align-self-center mt-2 mt-sm-0">
+    <div class="col-6 align-self-center">
       <button
       type="button"
       class="btn btn-primary w-100"
       id="randomTeam"
       name="randomTeam"
       >
-      Obtener equipo aleatorio
+      Equipo aleatorio
       </button>  
     </div>
       

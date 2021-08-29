@@ -96,16 +96,14 @@ function mostrarEquipos(equipos) {
                             <div class="col-12 col-sm-7 mb-3">
                               <input id="equipoABuscar" class="form-control me-2 " type="search" placeholder="Buscar equipo" aria-label="Search">
                             </div>
-                            <div class="col-12 col-sm-5 mb-3">
+                            <div class="col-6 col-sm-5 mb-3">
                               <button id="buscar" class="btn btn-primary w-100" type="button">Buscar</button>
                             </div> 
-                          </div>
-                          
-                          <div class="row justify-content-center">
-                            <div class="col-12 col-sm-5 mb-3">
+                            <div class="col-6 col-sm-5 mb-3">
                               <button id="mostrarTodos" class="btn btn-primary w-100" type="button">Mostrar todos</button>
                             </div> 
-                          </div> 
+                          </div>
+
                        </form>
                     </div>
                     
