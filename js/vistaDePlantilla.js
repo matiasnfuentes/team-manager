@@ -87,12 +87,12 @@ function mostrarJugador(jugador, equipoId){
                 <!-- Call to action buttons -->
                 <ul class="list-inline m-0 jugador__botones">
                     <li class="list-inline-item">
-                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <button class="btn btn-success btn-sm rounded-3" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
                             <i id="modify-${jugador.dni}" class="bi bi-pencil-square"></i>
                         </button>
                     </li>
                     <li class="list-inline-item">
-                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
+                        <button class="btn btn-danger btn-sm rounded-3" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
                             <i id="delete-${jugador.dni}" class="bi bi-x-square"></i>
                         </button>
                     </li>
@@ -101,5 +101,5 @@ function mostrarJugador(jugador, equipoId){
         </tr>`);
 
     $('#plantilla').on('click',`#delete-${jugador.dni}`, () => eliminarJugador(jugador.dni, equipoId));
-    $('#plantilla').on('click',`#modify-${jugador.dni}`, () => mostrarModificadorDeJugadores(jugador, equipoId) );
+    $('#plantilla').on('click',`#modify-${jugador.dni}`, () => mostrarModificadorDeJugadores(jugador));
 }

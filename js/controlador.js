@@ -13,10 +13,11 @@ function crearEquipo() {
     $("#entrenador").val('');
     $("#estadio").val('');
     if(verificarAtributosDelEquipo(nombre,entrenador,estadio)){
-        var idAvatar = $("#avatarEquipo").children("option:selected").val();
+        let idAvatar = $("#avatarEquipo").children("option:selected").val();
         let equipo = new Equipo(nombre, lastId, entrenador, estadio, idAvatar);
         equipos.push(equipo);
         lastId++;
+        mostrarModalDeEquipos(equipo);
     }else{
         mostrarAlerta("Los parámetros ingresados para crear el equipo son incorrectos!", () => mostrarCreadorDeEquipos());
     }
@@ -31,6 +32,25 @@ function eliminarEquipo(equipoId) {
     equipos = equipos.filter(e => e.id != equipoId);
     partidos = partidos.filter(p => (p.equipoLocalId != equipoId) && (p.equipoVisitanteId != equipoId));
     mostrarEquipos(equipos);
+}
+
+function eliminarEquipo(equipoId) {
+    equipos = equipos.filter(e => e.id != equipoId);
+    partidos = partidos.filter(p => (p.equipoLocalId != equipoId) && (p.equipoVisitanteId != equipoId));
+    mostrarEquipos(equipos);
+}
+
+function modificarEquipo(equipo){
+    let nombre = $("#nombreEquipo").val();
+    let entrenador = $("#entrenador").val();
+    let estadio = $("#estadio").val();
+    let idAvatar = $("#avatarEquipo").children("option:selected").val();
+    if(verificarAtributosDelEquipo(nombre,entrenador,estadio)){
+        equipo.modificarAtributos(nombre, entrenador, estadio, idAvatar);
+        mostrarEquipos(equipos);
+    }else{
+        mostrarAlerta("Los parámetros ingresados para editar el equipo son incorrectos!", () => mostrarModificadorDeEquipos(equipo));
+    }
 }
 
 function getEquipo(equipoId){
@@ -133,8 +153,6 @@ function modificarPartido(partido){
     $(`#registrarPartido`).unbind();
     let equipoLocal = $("#local option:selected" ).val();
     let equipoVisitante = $("#visitante option:selected").val();
-    console.log(equipoLocal);
-    console.log(equipoVisitante);
     let golesLocal = parseInt($("#localGoles").val());
     let golesVisitante = parseInt($("#visitanteGoles").val());
     if(equipoLocal!='-1' && equipoVisitante!='-1'){
@@ -152,8 +170,8 @@ function modificarPartido(partido){
 
 function init() {
     Object.cast = function cast(rawObj, constructor){
-        var obj = new constructor();
-        for(var i in rawObj)
+        let obj = new constructor();
+        for(let i in rawObj)
             obj[i] = rawObj[i];
         return obj;
     }

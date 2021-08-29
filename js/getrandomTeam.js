@@ -21,14 +21,12 @@ function getRandomTeam(){
          type: 'GET'}).done(function(response) {
             let nombre = response.shortName;
             let estadio = response.venue;
-            let entrenador = response.squad[0].name;
+            let entrenador = response.squad.pop().name;
             
             let equipo = new Equipo(nombre, lastId, entrenador, estadio, avatarId);
             equipos.push(equipo);
             lastId++;
-            $('#randomModal-body').html(`Se creo el equipo ${equipo.nombre} con el id ${equipo.id}`);
-            var myModal = new bootstrap.Modal(document.getElementById('randomModal'), {focus: true})
-            myModal.show()
+            mostrarModalDeEquipos(equipo);
     });
 
 }

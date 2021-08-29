@@ -1,4 +1,29 @@
-function mostrarCreadorDeEquipos() {
+function mostrarCreadorDeEquipos(){
+  mostrarFormularioEquipos();
+  mostrarBotonesDeCreacionDeEquipos();
+  agregarModalDeEquipos();
+}
+
+function mostrarModificadorDeEquipos(equipo){
+  mostrarFormularioEquipos();
+  setearValoresDelEquipo(equipo);
+  $('#formulario').append(`
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-6 align-self-center">
+      <button
+      type="button"
+      class="btn btn-primary w-100"
+      id="editarEquipo"
+      name="editarEquipo"
+      >
+      Editar!
+      </button>  
+    </div>
+  </div>`);
+  $("#editarEquipo").click(() => modificarEquipo(equipo));
+}
+
+function mostrarFormularioEquipos() {
     $('#body').html(`<form id="formulario" class="col col-lg-8 p-e-2 p-s-2">
                         <div class="mb-3">
                           <label for="nombreEquipo" class="form-label"
@@ -62,45 +87,66 @@ function mostrarCreadorDeEquipos() {
                             <option value="10">Rojo y Negro</option>
                           </select>
                         </div>
-                        <div class="row justify-content-center">
-                          <div class="col-12 col-sm-6 align-self-center">
-                            <button
-                            type="button"
-                            class="btn btn-primary w-100"
-                            id="crearEquipo"
-                            name="crearEquipo"
-                            >
-                            Crear!
-                            </button>  
-                          </div>
-                          <div class="col-12 col-sm-6 align-self-center mt-2 mt-sm-0">
-                            <button
-                            type="button"
-                            class="btn btn-primary w-100"
-                            id="randomTeam"
-                            name="randomTeam"
-                            >
-                            Obtener equipo aleatorio
-                            </button>  
-                          </div>
-                            
-                        </div>
-                    </form>
-                    <div class="modal fade" id="randomModal" tabindex="-1" aria-labelledby="randomModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered">
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <h5 class="modal-title" id="randomModalLabel">Nuevo equipo generado!</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                          <div id="randomModal-body" class="modal-body">
-                              
-                          </div>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          </div>
-                      </div>
-                  </div>`);
-    $("#crearEquipo").click(() => crearEquipo());
-    $("#randomTeam").click(() => getRandomTeam());
+                    </form>`);
+}
+
+function mostrarBotonesDeCreacionDeEquipos(){
+  $('#formulario').append(`
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-6 align-self-center">
+      <button
+      type="button"
+      class="btn btn-primary w-100"
+      id="crearEquipo"
+      name="crearEquipo"
+      >
+      Crear!
+      </button>  
+    </div>
+    <div class="col-12 col-sm-6 align-self-center mt-2 mt-sm-0">
+      <button
+      type="button"
+      class="btn btn-primary w-100"
+      id="randomTeam"
+      name="randomTeam"
+      >
+      Obtener equipo aleatorio
+      </button>  
+    </div>
+      
+  </div>`);
+  $("#crearEquipo").click(() => crearEquipo());
+  $("#randomTeam").click(() => getRandomTeam());
+}
+
+function agregarModalDeEquipos(){
+  $('#body').append(`
+  <div class="modal fade" id="equiposModal" tabindex="-1" aria-labelledby="equiposModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="equiposModalLabel">Nuevo equipo generado!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+        <div id="equiposModal-body" class="modal-body">
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>`);
+}
+
+function mostrarModalDeEquipos(equipo){
+  $('#equiposModal-body').html(`Se creo el equipo ${equipo.nombre} con el id ${equipo.id}`);
+  var myModal = new bootstrap.Modal(document.getElementById('equiposModal'), {focus: true});
+  myModal.show()
+}
+
+function setearValoresDelEquipo(equipo){
+  $('#nombreEquipo').val(equipo.nombre);
+  $('#entrenador').val(equipo.entrenador);
+  $('#estadio').val(equipo.estadio);
+  $(`#avatarEquipo option[value='${equipo.idAvatar}']`).attr("selected", true);
 }

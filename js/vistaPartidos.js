@@ -176,12 +176,12 @@ function mostrarPartido(partido){
                 <!-- Call to action buttons -->
                 <ul class="list-inline m-0 jugador__botones">
                     <li class="list-inline-item">
-                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <button class="btn btn-success btn-sm rounded-3" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
                             <i id="modify-${partido.id}" class="bi bi-pencil-square"></i>
                         </button>
                     </li>
                     <li class="list-inline-item">
-                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
+                        <button class="btn btn-danger btn-sm rounded-3" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
                             <i id="delete-${partido.id}" class="bi bi-x-square"></i>
                         </button>
                     </li>

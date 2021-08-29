@@ -41,5 +41,12 @@ class Equipo {
   eliminarJugador (dni) {
     this.plantilla = this.plantilla.filter(j => j.dni != dni)
   }
+
+  modificarAtributos(nombre, entrenador, estadio, idAvatar){
+    this.nombre = nombre;
+    this.entrenador = entrenador;
+    this.estadio = estadio;
+    this.idAvatar = idAvatar;
+  }
   
 }
