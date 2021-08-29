@@ -16,7 +16,7 @@ function getRandomTeam(){
     let avatarId = avatarIds[Math.floor(Math.random() * avatarIds.length)];
 
     $.ajax( {headers: { 'X-Auth-Token': 'c725738adaf74702bfa4eb1ba8c2cbb8' },
-         url: `http://api.football-data.org/v2/teams/${teamId}`,
+         url: `https://api.football-data.org/v2/teams/${teamId}`,
          dataType: 'json', 
          type: 'GET'}).done(function(response) {
             let nombre = response.shortName;
