@@ -26,7 +26,7 @@ function getRandomTeam(){
             if (plantel.length === 0){
                 entrenador = `Couch ${teamId}`;
             } else{
-                entrenador = squad.pop().name;
+                entrenador = plantel.pop().name;
             }
 
             let equipo = new Equipo(nombre, lastId, entrenador, estadio, avatarId);
