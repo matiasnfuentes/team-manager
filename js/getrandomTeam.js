@@ -18,7 +18,7 @@ function getRandomTeam(){
     $.ajax( {headers: { 'X-Auth-Token': 'c725738adaf74702bfa4eb1ba8c2cbb8' },
          url: `https://api.football-data.org/v2/teams/${teamId}`,
          dataType: 'json', 
-         type: 'GET'}).done(function(response) {
+         type: 'GET'}).done((response) => {
             let nombre = response.shortName;
             let estadio = response.venue;
             let plantel = response.squad;
@@ -36,6 +36,12 @@ function getRandomTeam(){
             plantel.forEach( (j, index) => {
                 equipo.agregarJugador(j.name, j.id, parsePosicion(j.position), index);
             })
+          }).fail( () => {
+            $('#equiposModal-titulo').html(`Algo salió mal =(`);
+            $('#equiposModal-body').html(`No se pudo crear el equipo ya que se están realizando muchas
+            solicitudes a la api, intente de nuevo en unos instantes.`);
+            var myModal = new bootstrap.Modal(document.getElementById('equiposModal'), {focus: true});
+            myModal.show()
     });
 
 }

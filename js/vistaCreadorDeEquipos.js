@@ -125,7 +125,7 @@ function agregarModalDeEquipos(){
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="equiposModalLabel">Nuevo equipo generado!</h5>
+                <h5 class="modal-title" id="equiposModal-titulo"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
         <div id="equiposModal-body" class="modal-body">
@@ -139,6 +139,7 @@ function agregarModalDeEquipos(){
 }
 
 function mostrarModalDeEquipos(equipo){
+  $('#equiposModal-titulo').html(`Nuevo equipo generado!`);
   $('#equiposModal-body').html(`Se creo el equipo ${equipo.nombre} con el id ${equipo.id}`);
   var myModal = new bootstrap.Modal(document.getElementById('equiposModal'), {focus: true});
   myModal.show()
