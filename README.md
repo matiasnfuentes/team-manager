@@ -5,6 +5,8 @@
 - Crear equipos y eliminar equipos.
 - Asignarles avatars.
 - Crear, eliminar y modificar jugadores de los equipos.
+- Crear, eliminar y modificar partidos.
+- Obtener equipos aleatorios a través de una API
 
 ### Detalles técnicos:
 
