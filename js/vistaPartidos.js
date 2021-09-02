@@ -133,9 +133,9 @@ function mostrarTablaDePartidos(equipoID){
     let encabezados = ["#","Local","Visitante","Resultado",""];
     crearTablaGenerica(encabezados,"#body");
     if (typeof equipoID != "undefined"){
-        let partidoDelEquipo = partidos.filter( p => (p.equipoLocalId == equipoID) || (p.equipoVisitanteId == equipoID) );
-        console.log(partidoDelEquipo);
-        partidoDelEquipo.forEach( p => mostrarPartido(p));
+        let partidosDelEquipo = partidos.filter( p => (p.equipoLocalId == equipoID) || (p.equipoVisitanteId == equipoID) );
+        console.log(partidosDelEquipo);
+        partidosDelEquipo.forEach( p => mostrarPartido(p));
     } else {
         partidos.forEach(p => mostrarPartido(p));
     }
