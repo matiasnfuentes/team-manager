@@ -109,7 +109,7 @@ function verificarDNI(dni, equipo, esModificion){
 }
 
 function verificarAtributosDelJugador(nombre, dni, posicion, camiseta, equipo, esModificion){
-    return (nombre!="") && verificarDNI(dni, equipo, esModificion)  && (posicion != "Posición") && (camiseta && !isNaN(camiseta) && camiseta<100);
+    return (nombre!="") && verificarDNI(dni, equipo, esModificion)  && (posicion != "Posición") && (!isNaN(camiseta) && camiseta >=0 && camiseta<100);
 }
 
 function obtenerDatosDelJugadorVerificarlosYSiSonCorrectosProceder(equipoId, funcionSiVerificacionEsExitosa, esModificion) {
