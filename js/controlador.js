@@ -89,7 +89,6 @@ function crearJugador(equipoId) {
 }
 
 function modificarJugador(equipoId, dniOriginal){
-    console.log("asd");
     const accionesParaModificarJugador = (nombre, dni, posicion, camiseta, equipo) => {
         let jugador = equipo.plantilla.find(j => j.dni == dniOriginal);
         jugador.modificarAtributos(nombre, dni, posicion, camiseta);

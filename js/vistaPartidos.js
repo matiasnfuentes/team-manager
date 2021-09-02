@@ -134,7 +134,6 @@ function mostrarTablaDePartidos(equipoID){
     crearTablaGenerica(encabezados,"#body");
     if (typeof equipoID != "undefined"){
         let partidosDelEquipo = partidos.filter( p => (p.equipoLocalId == equipoID) || (p.equipoVisitanteId == equipoID) );
-        console.log(partidosDelEquipo);
         partidosDelEquipo.forEach( p => mostrarPartido(p));
     } else {
         partidos.forEach(p => mostrarPartido(p));
