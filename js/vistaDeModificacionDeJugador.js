@@ -1,6 +1,6 @@
 function mostrarModificadorDeJugadores(jugador, equipoId){
-
     mostrarCreadorDeJugadores();
+    $("#crearJugador").unbind();
     $("#nombreJugador").val(jugador.nombre);
     $("#dni").val(jugador.dni);
     $("#camiseta").val(jugador.camiseta);

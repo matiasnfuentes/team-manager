@@ -5,6 +5,14 @@ class Jugador {
     this.posicion = posicion
     this.camiseta = camiseta
   }
+
+  modificarAtributos(nombre, dni, posicion, camiseta){
+    this.nombre = nombre
+    this.dni = dni
+    this.posicion = posicion
+    this.camiseta = camiseta
+  }
+  
 }
 
 class Partido {

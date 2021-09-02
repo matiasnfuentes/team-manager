@@ -89,9 +89,10 @@ function crearJugador(equipoId) {
 }
 
 function modificarJugador(equipoId, dniOriginal){
+    console.log("asd");
     const accionesParaModificarJugador = (nombre, dni, posicion, camiseta, equipo) => {
-        equipo.plantilla = equipo.plantilla.filter(j => j.dni != dniOriginal);
-        equipo.agregarJugador(nombre, dni, posicion, camiseta);
+        let jugador = equipo.plantilla.find(j => j.dni == dniOriginal);
+        jugador.modificarAtributos(nombre, dni, posicion, camiseta);
         mostrarPlantilla(equipoId);
     }
     obtenerDatosDelJugadorVerificarlosYSiSonCorrectosProceder(equipoId, accionesParaModificarJugador, true);
@@ -113,11 +114,10 @@ function verificarAtributosDelJugador(nombre, dni, posicion, camiseta, equipo, e
 
 function obtenerDatosDelJugadorVerificarlosYSiSonCorrectosProceder(equipoId, funcionSiVerificacionEsExitosa, esModificion) {
     let nombre = $("#nombreJugador").val();
-    let dni = $("#dni").val();
-    dni = dni ? parseInt(dni) : dni; 
+    let dni = parseInt($("#dni").val());
     let posicion = $( "#posicion option:selected" ).text();
-    let camiseta = $("#camiseta").val();
-    camiseta = camiseta ? parseInt(camiseta) : camiseta;
+    let camiseta = parseInt($("#camiseta").val());
+
     let equipoDelJugador = getEquipo(equipoId);
     if(verificarAtributosDelJugador(nombre, dni, posicion, camiseta, equipoDelJugador, esModificion)){
         funcionSiVerificacionEsExitosa(nombre, dni, posicion, camiseta, equipoDelJugador);
@@ -145,7 +145,7 @@ function registrarPartido(){
 
 function eliminarPartido(partidoId){
     partidos = partidos.filter(p => p.id != partidoId);
-    $('#partidosTabla').html('');
+    $('#table__contenido').html('');
     partidos.forEach(p => mostrarPartido(p));
 }
 
@@ -178,35 +178,16 @@ function init() {
 
     window.onload = () => {
 
-        equipos = JSON.parse(localStorage.getItem('equipos'));
-        if (equipos) {
-            equipos = equipos.map( e => {
+        equipos = JSON.parse(localStorage.getItem('equipos')) || [];
+        equipos = equipos.map( e => {
                         e.plantilla = e.plantilla.map(j => Object.cast(j, Jugador));
                         let equipo = Object.cast(e, Equipo);
                         return equipo;
-                    })
-        } else{
-            equipos = [];    
-        }
+                    });
 
-        partidos = JSON.parse(localStorage.getItem('partidos'));
-        if (!partidos) {
-            partidos = [];    
-        }
-        
-        lastId = localStorage.getItem('lastId');
-        if (!lastId) {
-            lastId = 0;
-        } else{
-            lastId = parseInt(lastId);
-        }
-
-        lastPartidoID = localStorage.getItem('lastPartidoID');
-        if (!lastPartidoID) {
-            lastPartidoID = 0;
-        } else {
-            lastPartidoID = parseInt(lastPartidoID);
-        }
+        partidos = JSON.parse(localStorage.getItem('partidos')) || [];
+        lastId = parseInt(localStorage.getItem('lastId')) || 0;
+        lastPartidoID = parseInt(localStorage.getItem('lastPartidoID')) || 0;
 
         mostrarCreadorDeEquipos();
         $("#creadorDeEquipos").click( () => mostrarCreadorDeEquipos() );

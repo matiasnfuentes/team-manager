@@ -41,30 +41,8 @@ function mostrarCreadorDeJugadores(){
   
 function mostrarPlantilla(equipoId){
     mostrarCreadorDeJugadores();
-    $("#body").append(`  
-      <div class="row mt-2 align-self-center">
-          <div class="col-12 col-sm-8 mx-auto">
-              <div class="card border-0 shadow">
-                  <div class="card-body p-0 p-sm-3">
-                      <div class="table-responsive">
-                          <table class="table m-0">
-                              <thead>
-                                  <tr>
-                                      <th scope="col">#</th>
-                                      <th scope="col">Nombre</th>
-                                      <th scope="col">DNI</th>
-                                      <th scope="col">Posición</th>
-                                      <th scope="col"></th>
-                                  </tr>
-                              </thead>
-                              <tbody id="plantilla">
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>`);
+    let encabezados = ["#","Nombre","DNI","Posición",""];
+    crearTablaGenerica(encabezados, "#body");
     $("#crearJugador").click( () =>{
         crearJugador(equipoId);
         $("#nombreJugador").val("");
@@ -77,29 +55,10 @@ function mostrarPlantilla(equipoId){
 }
 
 function mostrarJugador(jugador, equipoId){
-    $("#plantilla").append(`
-        <tr>
-            <th scope="row">${jugador.camiseta}</th>
-            <td>${jugador.nombre}</td>
-            <td>${jugador.dni}</td>
-            <td>${jugador.posicion}</td>
-            <td>
-                <!-- Call to action buttons -->
-                <ul class="list-inline m-0 jugador__botones">
-                    <li class="list-inline-item">
-                        <button class="btn btn-success btn-sm rounded-3" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
-                            <i id="modify-${jugador.dni}" class="bi bi-pencil-square"></i>
-                        </button>
-                    </li>
-                    <li class="list-inline-item">
-                        <button class="btn btn-danger btn-sm rounded-3" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
-                            <i id="delete-${jugador.dni}" class="bi bi-x-square"></i>
-                        </button>
-                    </li>
-                </ul>
-            </td>
-        </tr>`);
+    
+    let columnas = [jugador.nombre, jugador.dni, jugador.posicion];
+    let funcionModificar = () => mostrarModificadorDeJugadores(jugador, equipoId);
+    let funcionEliminar = () => eliminarJugador(jugador.dni, equipoId);
+    crearFilaGenérica("#table__contenido", jugador.camiseta , columnas, jugador.dni, funcionEliminar, funcionModificar);
 
-    $('#plantilla').on('click',`#delete-${jugador.dni}`, () => eliminarJugador(jugador.dni, equipoId));
-    $('#plantilla').on('click',`#modify-${jugador.dni}`, () => mostrarModificadorDeJugadores(jugador));
 }

@@ -91,13 +91,13 @@ function setearBotonesParaAñadirYRestarGoles(localia) {
 
     $(`#${localia}Mas`).click( () => {
         let currentVal = parseInt($(`#${localia}Goles`).val());
-        let maxVal = $(`#${localia}Goles`).attr('max');
+        let maxVal = parseInt($(`#${localia}Goles`).attr('max'));
 
         if(currentVal < maxVal){
             $(`#${localia}Goles`).val(currentVal + 1);
         }
 
-        let valorDespuesDeSuma = $(`#${localia}Goles`).val();
+        let valorDespuesDeSuma = parseInt($(`#${localia}Goles`).val());
 
         if(valorDespuesDeSuma >= maxVal){
             $(`#${localia}Mas`).attr('disabled', true);
@@ -110,13 +110,13 @@ function setearBotonesParaAñadirYRestarGoles(localia) {
     
     $(`#${localia}Menos`).click( () => {
         let currentVal = parseInt($(`#${localia}Goles`).val());
-        let minVal = $(`#${localia}Goles`).attr('min');
+        let minVal = parseInt($(`#${localia}Goles`).attr('min'));
 
         if(currentVal > minVal){
             $(`#${localia}Goles`).val(currentVal - 1);
         }
 
-        let valorDespuesDeResta = $(`#${localia}Goles`).val();
+        let valorDespuesDeResta = parseInt($(`#${localia}Goles`).val());
 
         if(valorDespuesDeResta <= minVal){
             $(`#${localia}Menos`).attr('disabled', true);
@@ -130,33 +130,12 @@ function setearBotonesParaAñadirYRestarGoles(localia) {
 }
 
 function mostrarTablaDePartidos(equipoID){
-    $("#body").append(`  
-      <div class="row mt-2 align-self-center">
-          <div class="col-12 col-sm-8 mx-auto">
-              <div class="card border-0 shadow">
-                  <div class="card-body p-0 p-sm-3">
-                      <div class="table-responsive">
-                          <table class="table m-0">
-                              <thead>
-                                  <tr>
-                                      <th scope="col">#</th>
-                                      <th scope="col">Local</th>
-                                      <th scope="col">Visitante</th>
-                                      <th scope="col">Resultado</th>
-                                      <th scope="col"></th>
-                                  </tr>
-                              </thead>
-                              <tbody id="partidosTabla"></tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>`);
-    if (equipoID){
-        partidos
-            .filter( p => (p.equipoLocalId == equipoID) || (p.equipoVisitanteId == equipoID) )
-            .forEach( p => mostrarPartido(p));
+    let encabezados = ["#","Local","Visitante","Resultado",""];
+    crearTablaGenerica(encabezados,"#body");
+    if (typeof equipoID != "undefined"){
+        let partidoDelEquipo = partidos.filter( p => (p.equipoLocalId == equipoID) || (p.equipoVisitanteId == equipoID) );
+        console.log(partidoDelEquipo);
+        partidoDelEquipo.forEach( p => mostrarPartido(p));
     } else {
         partidos.forEach(p => mostrarPartido(p));
     }
@@ -166,31 +145,12 @@ function mostrarTablaDePartidos(equipoID){
 function mostrarPartido(partido){
     let equipoLocal = equipos.find( e => e.id == partido.equipoLocalId).nombre;
     let equipoVisitante = equipos.find( e => e.id == partido.equipoVisitanteId).nombre;
-    $("#partidosTabla").append(`
-        <tr>
-            <th scope="row">${partido.id}</th>
-            <td>${equipoLocal}</td>
-            <td>${equipoVisitante}</td>
-            <td>${partido.golesLocal} - ${partido.golesVisitante}</td>
-            <td>
-                <!-- Call to action buttons -->
-                <ul class="list-inline m-0 jugador__botones">
-                    <li class="list-inline-item">
-                        <button class="btn btn-success btn-sm rounded-3" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
-                            <i id="modify-${partido.id}" class="bi bi-pencil-square"></i>
-                        </button>
-                    </li>
-                    <li class="list-inline-item">
-                        <button class="btn btn-danger btn-sm rounded-3" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
-                            <i id="delete-${partido.id}" class="bi bi-x-square"></i>
-                        </button>
-                    </li>
-                </ul>
-            </td>
-        </tr>`);
-    $('#partidosTabla').on('click',`#delete-${partido.id}`, () => eliminarPartido(partido.id) );
-    $('#partidosTabla').on('click',`#modify-${partido.id}`, () => mostrarModificadorDePartidos(partido) );
+    let resultado = partido.golesLocal + '-' + partido.golesVisitante;
 
+    let columnas = [equipoLocal, equipoVisitante, resultado];
+    let funcionModificar = () => mostrarModificadorDePartidos(partido);
+    let funcionEliminar = () => eliminarPartido(partido.id)
+    crearFilaGenérica("#table__contenido", partido.id , columnas, partido.id, funcionEliminar, funcionModificar);
 }
 
 function mostrarModificadorDePartidos(partido){
